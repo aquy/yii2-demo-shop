@@ -43,7 +43,7 @@ class SetUp implements BootstrapInterface
 
         $container->setSingleton(Cart::class, function () {
             return new Cart(
-                new SessionStorage('cart'),
+                new SessionStorage('cart', \Yii::$app->session),
                 new SimpleCost()
             );
         });
