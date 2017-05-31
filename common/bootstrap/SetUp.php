@@ -5,11 +5,13 @@ namespace common\bootstrap;
 use Elasticsearch\Client;
 use Elasticsearch\ClientBuilder;
 use frontend\urls\CategoryUrlRule;
+use frontend\urls\PageUrlRule;
 use shop\cart\Cart;
 use shop\cart\cost\calculator\DynamicCost;
 use shop\cart\cost\calculator\SimpleCost;
 use shop\cart\storage\CookieStorage;
 use shop\cart\storage\SessionStorage;
+use shop\readModels\PageReadRepository;
 use shop\readModels\Shop\CategoryReadRepository;
 use shop\services\ContactService;
 use yii\base\BootstrapInterface;
@@ -40,6 +42,11 @@ class SetUp implements BootstrapInterface
 
         $container->set(CategoryUrlRule::class, [], [
             Instance::of(CategoryReadRepository::class),
+            Instance::of('cache'),
+        ]);
+
+        $container->set(PageUrlRule::class, [], [
+            Instance::of(PageReadRepository::class),
             Instance::of('cache'),
         ]);
 
