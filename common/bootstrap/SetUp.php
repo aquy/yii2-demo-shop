@@ -14,7 +14,7 @@ use shop\services\yandex\ShopInfo;
 use shop\services\yandex\YandexMarket;
 use shop\readModels\PageReadRepository;
 use shop\readModels\Shop\CategoryReadRepository;
-use shop\services\ContactService;
+use shop\useCases\ContactService;
 use yii\base\BootstrapInterface;
 use yii\di\Instance;
 use yii\mail\MailerInterface;
