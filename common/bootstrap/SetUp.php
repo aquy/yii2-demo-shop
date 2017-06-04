@@ -10,6 +10,8 @@ use shop\cart\Cart;
 use shop\cart\cost\calculator\DynamicCost;
 use shop\cart\cost\calculator\SimpleCost;
 use shop\cart\storage\HybridStorage;
+use shop\services\yandex\ShopInfo;
+use shop\services\yandex\YandexMarket;
 use shop\readModels\PageReadRepository;
 use shop\readModels\Shop\CategoryReadRepository;
 use shop\services\ContactService;
@@ -36,6 +38,10 @@ class SetUp implements BootstrapInterface
             return $app->cache;
         });
 
+        $container->setSingleton('frontend-url-manager', function () use ($app) {
+            return $app->get('frontendUrlManager');
+        });
+
         $container->setSingleton(ManagerInterface::class, function () use ($app) {
             return $app->authManager;
         });
@@ -60,5 +66,9 @@ class SetUp implements BootstrapInterface
                 new DynamicCost(new SimpleCost())
             );
         });
+
+        $container->setSingleton(YandexMarket::class, [], [
+            new ShopInfo($app->name, $app->name, $app->params['frontendHostInfo']),
+        ]);
     }
 }
